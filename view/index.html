@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Basecamp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="file-warning" class="file-warning" hidden>
+    This page was opened as a plain file. Run <b>node server.js</b> in the terminal and open <b>http://localhost:3000</b> in your browser.
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#/">
+      <span class="brand-text">My Basecamp</span>
+    </a>
+    <nav class="nav" id="nav"></nav>
+  </header>
+
+  <main class="stage">
+    <section class="page" data-page="home">
+      <div class="hero">
+        <span class="hero-badge">All your projects in one place</span>
+        <h1>My Basecamp</h1>
+        <p>Create projects, keep them organized and manage everything from one place.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-xl" href="#/signin">Sign in</a>
+          <a class="btn btn-ghost btn-xl" href="#/signup">Sign up</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="signin">
+      <div class="panel panel-narrow">
+        <h2>Welcome back</h2>
+        <p class="panel-sub">Sign in to your account</p>
+        <form id="signin-form" class="form" novalidate>
+          <label class="field">
+            <span>Email</span>
+            <input type="email" name="email" placeholder="ad@numune.az" autocomplete="email">
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input type="password" name="password" placeholder="Your password" autocomplete="current-password">
+          </label>
+          <p class="form-error" data-error></p>
+          <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+        <p class="panel-foot">Don't have an account? <a href="#/signup">Sign up</a></p>
+      </div>
+    </section>
+
+    <section class="page" data-page="signup">
+      <div class="panel panel-narrow">
+        <h2>Create account</h2>
+        <p class="panel-sub">It only takes a few seconds</p>
+        <form id="signup-form" class="form" novalidate>
+          <label class="field">
+            <span>Name</span>
+            <input type="text" name="name" placeholder="Your name" autocomplete="name">
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input type="email" name="email" placeholder="ad@numune.az" autocomplete="email">
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input type="password" name="password" placeholder="At least 6 characters" autocomplete="new-password">
+          </label>
+          <label class="field">
+            <span>Confirm password</span>
+            <input type="password" name="password_confirmation" placeholder="Repeat your password" autocomplete="new-password">
+          </label>
+          <p class="form-error" data-error></p>
+          <button class="btn btn-primary btn-block" type="submit">Sign up</button>
+        </form>
+        <p class="panel-foot">Already have an account? <a href="#/signin">Sign in</a></p>
+      </div>
+    </section>
+
+    <section class="page" data-page="projects">
+      <div class="page-head">
+        <div>
+          <h2>Projects</h2>
+        </div>
+        <a class="btn btn-primary" href="#/projects/new">+ New project</a>
+      </div>
+      <div class="tabs" id="project-tabs">
+        <button class="tab is-active" data-action="tab" data-tab="all">All projects</button>
+        <button class="tab" data-action="tab" data-tab="mine">Created by me</button>
+      </div>
+      <div class="grid" id="projects-list"></div>
+    </section>
+
+    <section class="page" data-page="project">
+      <a class="back" href="#/projects">← Back to projects</a>
+      <article class="detail" id="project-detail"></article>
+    </section>
+
+    <section class="page" data-page="project-form">
+      <a class="back" href="#/projects">← Back to projects</a>
+      <div class="panel panel-medium">
+        <h2 id="project-form-title">New project</h2>
+        <p class="panel-sub" id="project-form-sub">Enter the project title and description</p>
+        <form id="project-form" class="form" novalidate>
+          <label class="field">
+            <span>Project title</span>
+            <input type="text" name="title" maxlength="100" placeholder="For example: Website redesign">
+          </label>
+          <label class="field">
+            <span>Description</span>
+            <textarea name="description" rows="6" maxlength="1000" placeholder="A short description of the project"></textarea>
+          </label>
+          <p class="form-error" data-error></p>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit" id="project-submit">Save</button>
+            <a class="btn btn-ghost" href="#/projects">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="page" data-page="users">
+      <div class="page-head">
+        <div>
+          <h2>Users</h2>
+          <p class="muted">All accounts on the platform</p>
+        </div>
+      </div>
+      <div class="grid grid-users" id="users-list"></div>
+    </section>
+
+    <section class="page" data-page="user">
+      <a class="back" href="#/users">← Back to users</a>
+      <article class="detail detail-user" id="user-detail"></article>
+    </section>
+
+    <section class="page" data-page="missing">
+      <div class="panel panel-narrow center">
+        <h2>Page not found</h2>
+        <p class="panel-sub">The page you are looking for does not exist.</p>
+        <a class="btn btn-primary" href="#/">Home</a>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="confirm">
+    <form method="dialog" class="confirm-box">
+      <h3 id="confirm-title">Are you sure?</h3>
+      <p id="confirm-text"></p>
+      <div class="confirm-actions">
+        <button class="btn btn-ghost" value="cancel">Cancel</button>
+        <button class="btn btn-danger" value="ok" id="confirm-ok">Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

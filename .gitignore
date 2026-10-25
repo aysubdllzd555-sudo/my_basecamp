@@ -1,0 +1,4 @@
+node_modules
+basecamp.db
+*.log
+cookie.txt
