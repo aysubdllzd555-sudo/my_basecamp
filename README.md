@@ -23,10 +23,9 @@ PUT /api/users/:id/set_admin, PUT /api/users/:id/remove_admin
 GET /api/projects, GET /api/projects/:id, POST /api/projects, PUT /api/projects/:id, DELETE /api/projects/:id
 The file test.js is a small script that checks all of these endpoints, including the permission rules.
 ## Installation
-TODO - How to install your project? npm install? make? make re?
-
+You need Node.js (version 18 or newer) and npm installed on your computer. No other program and no separate database server is needed, because SQLite stores everything in a single file inside the project folder.
+Download or clone the project, open the project folder in a terminal (the folder that contains server.js and package.json) and run npm install. This downloads the packages the project depends on: express, express-session, sqlite3 and bcryptjs.
 ## Usage
-TODO - How does it work?
 Start the server by running node server.js in the project folder. When it is ready, the terminal prints the address http://localhost:3000. Open this address in a web browser. If port 3000 is already used by another program, start the server with the PORT environment variable set to another number, for example 3001, and open that port instead.
 Do not open index.html by double clicking it and do not use VS Code Live Server for the frontend. The page must be opened through the Node.js server, otherwise the buttons cannot reach the backend and nothing will work.
 On the first page press Sign up and create an account. The first account that is created automatically becomes the admin. After signing up you are signed in and you see the projects page. There you can switch between All projects and Created by me, press New project to create a project, and use View, Edit and Delete on each project card. The Users link in the top bar shows all accounts. Opening a user shows the details, and an admin sees buttons to make that user an admin, remove the admin role or delete the user. Every user can delete their own account from their own user page. Sign out is in the top bar.
