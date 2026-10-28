@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var state = { me: null, ready: false, tab: 'all', projects: [], users: [], ticket: 0 };
+  var state = { me: null, ready: false, tab: 'all', projects: [], ticket: 0 };
 
   var pages = {};
   document.querySelectorAll('.page').forEach(function (el) {
@@ -81,7 +81,6 @@
   function sessionLost() {
     state.me = null;
     state.projects = [];
-    state.users = [];
     renderNav();
     notify('Session expired. Please sign in again.', 'error');
     go('#/signin');
@@ -106,7 +105,7 @@
     navEl.innerHTML =
       '<a class="nav-link' + (inProjects ? ' is-current' : '') + '" href="#/projects">Projects</a>' +
       '<a class="nav-link' + (inUsers ? ' is-current' : '') + '" href="#/users">Users</a>' +
-      '<a class="nav-who" href="#/users/' + state.me.id + '" style="text-decoration:none;color:inherit">' +
+      '<a class="nav-who" href="#/users/' + state.me.id + '">' +
       esc(state.me.name) + (state.me.isAdmin ? ' · Admin' : '') + '</a>' +
       '<button class="btn btn-ghost btn-sm" data-action="signout">Sign out</button>';
   }
@@ -228,7 +227,7 @@
     var ticket = ++state.ticket;
     var box = document.getElementById('project-detail');
     show('project');
-    box.innerHTML = '<div class="skeleton" style="border-radius:0;height:260px"></div>';
+    box.innerHTML = '<div class="skeleton skeleton-tall"></div>';
     request('GET', '/api/projects/' + id).then(
       function (p) {
         if (ticket !== state.ticket) return;
@@ -320,7 +319,6 @@
     request('GET', '/api/users').then(
       function (data) {
         if (ticket !== state.ticket) return;
-        state.users = data;
         usersList.innerHTML = data.map(userCard).join('');
       },
       function (err) {
@@ -335,7 +333,7 @@
     var ticket = ++state.ticket;
     var box = document.getElementById('user-detail');
     show('user');
-    box.innerHTML = '<div class="skeleton" style="border-radius:0;height:260px"></div>';
+    box.innerHTML = '<div class="skeleton skeleton-tall"></div>';
     request('GET', '/api/users/' + id).then(
       function (u) {
         if (ticket !== state.ticket) return;
@@ -531,8 +529,7 @@
         function () {
           state.me = null;
           state.projects = [];
-          state.users = [];
-          renderNav();
+                renderNav();
           notify('You signed out.');
           go('#/');
         },

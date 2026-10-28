@@ -10,6 +10,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7"
   }
 }
